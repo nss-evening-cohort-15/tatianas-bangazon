@@ -75,3 +75,10 @@ class ProductTests(APITestCase):
         response = self.client.get('/api/products')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), Product.objects.count())
+
+    def test_filtering_by_location(self):
+        """
+        Ensure we can filter by location query parameter
+        """
+
+        

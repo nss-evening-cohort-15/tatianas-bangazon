@@ -160,13 +160,13 @@ class ProductView(ViewSet):
     def list(self, request):
         """Get a list of all products"""
         products = Product.objects.all()
-
         number_sold = request.query_params.get('number_sold', None)
         category = request.query_params.get('category', None)
         order = request.query_params.get('order_by', None)
         direction = request.query_params.get('direction', None)
         name = request.query_params.get('name', None)
-
+        location = request.query_params.get('location', None)
+        
         if number_sold:
             products = products.annotate(
                 order_count=Count('orders')
@@ -181,6 +181,9 @@ class ProductView(ViewSet):
 
         if name is not None:
             products = products.filter(name__icontains=name)
+
+        if location is not None:
+            products = products.filter(location=location)
 
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
