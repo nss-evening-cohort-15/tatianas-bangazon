@@ -155,6 +155,7 @@ class ProductView(ViewSet):
                 type=openapi.TYPE_INTEGER,
                 description="Get Products over a certain price"
             ),
+          
         ]
     )
     def list(self, request):
